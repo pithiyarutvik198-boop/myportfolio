@@ -269,15 +269,86 @@
       transform: translate(-50%, -50%) rotate(0deg) scale(1);
     }
     html.dark #themeToggle { border-color: #334155; color: #cbd5e1; }
+
+    /* ===== Intro / Splash Screen ===== */
+    #introScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    html.dark #introScreen { background-color: #0f172a; }
+    #introScreen.intro-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    body.intro-active { overflow: hidden; }
+
+    .intro-avatar {
+      animation: popIn 0.6s ease both;
+    }
+
+    /* Floating animation moved here, onto the main site's nav logo badge */
+    .nav-logo-float {
+      animation: floatY 3.5s ease-in-out infinite;
+    }
+    .intro-ring {
+      animation: spinSlow 10s linear infinite;
+    }
+    .intro-fade {
+      animation: fadeInUp 0.7s ease both;
+    }
+    .intro-fade-1 { animation-delay: 0.15s; }
+    .intro-fade-2 { animation-delay: 0.3s; }
+    .intro-fade-3 { animation-delay: 0.45s; }
+
+    .intro-bar-track {
+      width: 220px;
+      height: 4px;
+      border-radius: 999px;
+      background-color: rgba(99, 102, 241, 0.15);
+      overflow: hidden;
+    }
+    html.dark .intro-bar-track { background-color: rgba(99, 102, 241, 0.2); }
+    .intro-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #6366f1, #4338ca);
+      transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #introScreen.intro-loaded .intro-bar-fill { width: 100%; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased intro-active">
+
+  <!-- INTRO / SPLASH SCREEN -->
+  <div id="introScreen" aria-hidden="true">
+    <div class="relative flex flex-col items-center text-center px-6">
+      <div class="relative">
+        <div class="absolute -inset-4 rounded-full border-2 border-dashed border-brand-300/70 intro-ring"></div>
+        <div class="intro-avatar w-24 h-24 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white font-extrabold text-3xl shadow-xl shadow-brand-500/30">
+          RP
+        </div>
+      </div>
+      <h1 class="intro-fade intro-fade-1 mt-6 font-extrabold text-2xl text-slate-900">Rutvik Pithiya</h1>
+      <p class="intro-fade intro-fade-2 text-brand-600 font-semibold text-sm mt-1">MIS Executive | Data Analyst</p>
+      <div class="intro-fade intro-fade-3 intro-bar-track mt-8">
+        <div class="intro-bar-fill"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- NAVIGATION -->
   <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center gap-2 font-bold text-xl text-slate-900">
-        <span class="p-2 bg-brand-500 text-white rounded-lg"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></span>
+        <span class="nav-logo-float p-2 bg-brand-500 text-white rounded-lg"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></span>
         Rutvik Pithiya
       </div>
       <div id="navLinks" class="relative hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
@@ -420,28 +491,28 @@
         <!-- Experience Stat Boxes -->
         <div class="reveal-group reveal grid grid-cols-2 gap-4">
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4" style="animation-delay:0s;">
               <i data-lucide="presentation" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">Power Point</h3>
             <p class="text-sm text-slate-500">Presentation </p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4" style="animation-delay:0.4s;">
               <i data-lucide="table" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">Advanced Excel</h3>
             <p class="text-sm text-slate-500">Automation & Formulas</p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4" style="animation-delay:0.8s;">
               <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">Power BI</h3>
             <p class="text-sm text-slate-500">Interactive Reports</p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4" style="animation-delay:1.2s;">
               <i data-lucide="refresh-cw" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">Power Query</h3>
@@ -455,28 +526,28 @@
         <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-4 text-center">Creative & AI Tools Expertise</p>
         <div class="reveal-group reveal grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center mb-4" style="animation-delay:0.2s;">
               <i data-lucide="palette" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">Canva</h3>
             <p class="text-sm text-slate-500">Design & Graphics</p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-4" style="animation-delay:0.6s;">
               <i data-lucide="bot" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">ChatGPT</h3>
             <p class="text-sm text-slate-500">AI Assistant</p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4" style="animation-delay:1.0s;">
               <i data-lucide="sparkles" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-bold text-slate-900 text-lg">Gemini</h3>
+            <h3 class="font-bold text-slate-900 text-lg">Claude</h3>
             <p class="text-sm text-slate-500">AI Assistant</p>
           </div>
           <div class="hover-lift icon-spin-hover p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4">
+            <div class="nav-logo-float w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4" style="animation-delay:1.4s;">
               <i data-lucide="video" class="w-5 h-5"></i>
             </div>
             <h3 class="font-bold text-slate-900 text-lg">After Effects</h3>
@@ -495,6 +566,46 @@
     </div>
 
     <div class="reveal hover-lift bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4 pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <h3 class="text-xl font-bold text-slate-900">MIS & ERP Executive</h3>
+          <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Current</span>
+        </div>
+        <div class="text-sm text-slate-500">
+          <span class="text-brand-600 font-medium">Khodiyar Castech</span>
+          <span class="mx-1">•</span>
+          <span>Rajkot, Gujarat</span>
+        </div>
+      </div>
+
+      <p class="text-slate-600 text-sm leading-relaxed mb-4">
+        Managed ERP data and production reporting, coordinating with the production team to keep records accurate and updated on time.
+      </p>
+      <ul class="reveal-group reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3">
+        <li class="group flex items-start gap-3 p-2 -m-2 rounded-xl transition-all duration-300 hover:bg-brand-50 hover:translate-x-1">
+          <i data-lucide="boxes" class="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></i>
+          <span class="text-sm text-slate-700"><span class="font-semibold">Stock Monitoring</span> — tracking stock levels in the ERP to keep inventory data accurate and up to date.</span>
+        </li>
+        <li class="group flex items-start gap-3 p-2 -m-2 rounded-xl transition-all duration-300 hover:bg-brand-50 hover:translate-x-1">
+          <i data-lucide="factory" class="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></i>
+          <span class="text-sm text-slate-700"><span class="font-semibold">Production Reports</span> — preparing production reports from ERP data for management review.</span>
+        </li>
+        <li class="group flex items-start gap-3 p-2 -m-2 rounded-xl transition-all duration-300 hover:bg-brand-50 hover:translate-x-1">
+          <i data-lucide="users" class="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></i>
+          <span class="text-sm text-slate-700"><span class="font-semibold">Production Team Coordination</span> — coordinating with the production team and helping them work smoothly in the ERP.</span>
+        </li>
+        <li class="group flex items-start gap-3 p-2 -m-2 rounded-xl transition-all duration-300 hover:bg-brand-50 hover:translate-x-1">
+          <i data-lucide="database" class="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></i>
+          <span class="text-sm text-slate-700"><span class="font-semibold">ERP Data Maintenance</span> — maintaining ERP master and transaction data for accuracy and consistency.</span>
+        </li>
+        <li class="group flex items-start gap-3 p-2 -m-2 rounded-xl transition-all duration-300 hover:bg-brand-50 hover:translate-x-1">
+          <i data-lucide="clock" class="w-4 h-4 text-brand-500 mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></i>
+          <span class="text-sm text-slate-700"><span class="font-semibold">Timely Update Checks</span> — checking that everyone updates their details in the ERP on time.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="reveal hover-lift bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8 mt-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4 pb-4 border-b border-slate-100">
         <div class="flex items-center gap-3">
           <h3 class="text-xl font-bold text-slate-900">MIS Executive</h3>
@@ -686,6 +797,33 @@
 
   <script>
     lucide.createIcons();
+
+    // ===== Intro / Splash screen =====
+    (function () {
+      const introScreen = document.getElementById('introScreen');
+      if (!introScreen) return;
+
+      // kick off the progress bar animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => introScreen.classList.add('intro-loaded'));
+      });
+
+      function dismissIntro() {
+        introScreen.classList.add('intro-hidden');
+        document.body.classList.remove('intro-active');
+        setTimeout(() => introScreen.remove(), 700);
+      }
+
+      // Show the intro for a minimum time, but don't block if the page is already loaded
+      const minDisplay = 1800;
+      const start = Date.now();
+      window.addEventListener('load', () => {
+        const elapsed = Date.now() - start;
+        setTimeout(dismissIntro, Math.max(0, minDisplay - elapsed));
+      });
+      // Fallback in case 'load' never fires as expected
+      setTimeout(dismissIntro, 4000);
+    })();
 
     // ===== Dark mode toggle =====
     const themeToggle = document.getElementById('themeToggle');
